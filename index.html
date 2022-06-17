@@ -9,6 +9,9 @@
 </head>
 
 <body>
+  <main class="container">
+    
+  <!-- 01 -->
   <div class="quiz">
     <div class="quiz__description">
       
@@ -17,11 +20,75 @@
  C'est fun et c'est gratuit. </p>
     </div>
     <div class="quiz__container">
-      <form action="">
-
+      <form action="" class="form">
+        <div class="input-container">
+          <label for="name">Nom</label>
+          <div class="input-group">
+            <input type="text" class="input" name="name" id="name" placeholder="Entrer votre nom" required>
+          </div>
+          
+          <!-- Validation -->
+          <div class="input-error">N’oubliez pas de renseigner votre nom avant de commencer le Quiz. </div>
+        </div>
+        <div class="input-container">
+          <label for="name">Email </label>
+          <div class="input-group invalid">
+            <input type="text" class="input" name="name" id="name" placeholder="Entrer votre email" required>
+          </div>
+          <!-- Validation -->
+          <div class="input-error">N’oubliez pas de renseigner votre email avant de commencer le Quiz</div>
+        </div>
+        <div class="btn-container">
+          <button type="submit">Commencer</button>
+        </div>
       </form>
     </div>
   </div>
+  <!-- End 01 -->
+  <!-- 02 -->
+  
+  <div class="quiz">
+    <div class="quiz__description">
+      
+  <p>Quel est le type d'un fichier javascript ? </p>
+  <div class="progression">
+    <div class="progression__details">
+      <p class="questions-report"></p>
+      <p class="questions_count"></p>
+    </div>
+    <div class="progression__bar">
+      <div class="bar"></div>
+    </div>
+  </div>
+
+    </div>
+    <div class="quiz__container">
+      <form action="" class="form">
+        <div class="input-container">
+          <label for="name">Nom</label>
+          <div class="input-group">
+            <input type="text" class="input" name="name" id="name" placeholder="Entrer votre nom" required>
+          </div>
+          
+          <!-- Validation -->
+          <div class="input-error">N’oubliez pas de renseigner votre nom avant de commencer le Quiz. </div>
+        </div>
+        <div class="input-container">
+          <label for="name">Email </label>
+          <div class="input-group invalid">
+            <input type="text" class="input" name="name" id="name" placeholder="Entrer votre email" required>
+          </div>
+          <!-- Validation -->
+          <div class="input-error">N’oubliez pas de renseigner votre email avant de commencer le Quiz</div>
+        </div>
+        <div class="btn-container">
+          <button type="submit">Commencer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End 02 -->
+  </main>
   <script src="assets/js/script.js"></script>
 </body>
 

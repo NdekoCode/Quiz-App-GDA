@@ -3,10 +3,12 @@
 :root {
   /* typo */
   --fs: 16px;
-  --primary-color: #555555;
-  --primary-font: "Inter", "Segoe UI", sans-serif;
-  --color-white: #fff;
   --fw-title: 500;
+  --primary-color: #555555;
+  --color--error: #ff3838;
+  --color-white: #fff;
+  --color-progress: #028a3d;
+  --primary-font: "Inter", "Segoe UI", sans-serif;
   --space-m: 3.44rem;
   --space: 2.5rem;
 }
@@ -19,6 +21,7 @@
   box-sizing: border-box;
   font-family: var(--primary-font);
   font-size: var(--fs);
+  transition: color 0.3s, background-color 0.3s;
 }
 .title {
   font-weight: bold;
@@ -45,22 +48,41 @@ body {
 }
 body {
   background: linear-gradient(90deg, #85f6b8, #8ed9eb);
+}
+.container {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 a {
   color: inherit;
 }
 
+.progression__details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.progression__bar {
+  height: 10px;
+  width: 100%;
+}
+.bar {
+  background-color: var(--color-progress);
+}
 .title-2 {
   margin-bottom: var(--space-m);
+}
+.container {
+  max-width: 1150px;
+  margin: 2rem auto;
 }
 .quiz {
   background-color: var(--color-white);
   padding: var(--space);
-  max-width: 522px;
-  min-height: 684px;
+  max-width: 571px;
+  min-height: 600px;
+  margin: 1rem;
 }
 
 .quiz__description {
@@ -77,11 +99,74 @@ a {
   margin: var(--space) 0;
 }
 .quiz__description p {
-  line-height: 1.96;
+  line-height: 1.6;
   max-width: 491px;
-  max-height: 154px;
+  padding-bottom: 1rem;
+}
+.form {
+  margin-bottom: 44px;
 }
 
+.input-container {
+  margin-top: 35px;
+  margin-bottom: 45px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+.input-group.invalid {
+  border-color: var(--color--error);
+}
+.input-group {
+  border: 1px solid #dddddd;
+  width: 100%;
+}
+.input-group input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.input-group input::placeholder,
+.input-group input {
+  font-size: 15px;
+}
+.input-container .input-group,
+.btn-container button {
+  padding: 21px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.btn-container button {
+  font-size: 20px;
+  border: none;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-progress);
+  color: var(--color-white);
+  padding-right: 55px;
+  padding-left: 55px;
+}
+
+label,
+input,
+img {
+  display: block;
+}
+
+.input-container label {
+  font-size: 1rem;
+}
+
+.input-container label {
+  margin-bottom: 15px;
+}
+.input-error {
+  font-size: 12px;
+  color: var(--color--error);
+  margin-top: 6px;
+}
 @media only screen and(min-width:762px) {
   .quiz {
     max-width: 572px;

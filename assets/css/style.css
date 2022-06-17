@@ -1,20 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
+/* CONFIGURATION DE BASE */
 :root {
- --fs: 16px;
- --primary-color: #555555;
+  /* typo */
+  --fs: 16px;
+  --primary-color: #555555;
+  --primary-font: "Inter", "Segoe UI", sans-serif;
+  --color-white: #fff;
+  --fw-title: 500;
+  --space-m: 3.44rem;
+  --space: 2.5rem;
 }
 
-*,*::before,*::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
-   box-sizing: border-box;
-   font-family:'Inter','Segoe UI',sans-serif;
-   font-size: var(--fs);
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+  font-size: var(--fs);
+}
+.title {
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: var(--fw-title);
+}
+
+.title-1 {
+  font-size: 2.2rem;
+}
+.title-2 {
+  font-size: 2rem;
 }
 p {
-  fonts-size: 20px;
+  font-size: 20px;
 }
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   color: var(--primary-color);
+  scroll-behavior: smooth;
+}
+body {
+  background: linear-gradient(90deg, #85f6b8, #8ed9eb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+a {
+  color: inherit;
+}
+
+.title-2 {
+  margin-bottom: var(--space-m);
+}
+.quiz {
+  background-color: var(--color-white);
+  padding: var(--space);
+  max-width: 522px;
+  min-height: 684px;
+}
+
+.quiz__description {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.quiz__description .title {
+  margin-bottom: var(--space);
+}
+.quiz__description {
+  margin: var(--space) 0;
+}
+.quiz__description p {
+  line-height: 1.96;
+  max-width: 491px;
+  max-height: 154px;
+}
+
+@media only screen and(min-width:762px) {
+  .quiz {
+    max-width: 572px;
+    max-height: 784px;
+  }
 }

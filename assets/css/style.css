@@ -196,16 +196,18 @@ a {
   padding-left: 75px;
   border: 1px solid transparent;
 }
-.btn {
+.form .btn {
   border: 1px solid transparent;
   color: var(--color-white);
 }
 .btn:hover {
   background-color: var(--color-white);
 }
+
 .btn-green {
   background-color: var(--color-progress);
 }
+
 .btn-green:hover {
   color: var(--color-progress);
   border-color: var(--color-progress);
@@ -219,9 +221,10 @@ a {
 }
 .btn-green-min {
   background-color: var(--color-progress-min);
-}
-.btn-green-min {
   cursor: not-allowed;
+}
+.btn-green-min:hover {
+  background-color: var(--color-progress-min);
 }
 
 .btn-warning {

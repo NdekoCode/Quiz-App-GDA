@@ -1,3 +1,14 @@
+class Question {
+  constructor(question) {
+    this.id = question.id;
+    this.title = question.title;
+    this.answers = question.answers;
+    this.trueAnswer = question.trueAnswer;
+  }
+  isCorrectAnswer(answer) {
+    return this.answers === answer;
+  }
+}
 class Quiz {
   /**
    * Creates an instance of Quiz.
@@ -35,9 +46,24 @@ class Quiz {
    * @memberof Quiz
    */
   guess(answer) {
-    if (answer === this.getCurrentQuestion().trueAnswer) {
-      return true;
+    // On verifie si la la reponse passé en parametre est la reponse de la question actuelle ou la question courrante car this.getCurrentQuestion() nous retourne une question qu'on qui sur cette question verifie si sa reponse correspond à notre reponse "answer"
+    if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
+      // Si la reponse est vrais alors on augmente le score
+      this.score++;
     }
+    // Et on passe à la question suivante
+    this.currentQuestionIndex++;
+  }
+
+  /**
+   * @description Permet de dire si les question sont terminer
+   * @author NdekoCode
+   * @return {Boolean}
+   * @memberof Quiz
+   */
+  hasEnded() {
+    // Quand tout est finis, quand on a déjà parcouris toute les questions càd quand l'index de la question courrante est superieur ou egale au nombre de question disponible
+    return this.currentQuestionIndex >= this.questions.length;
   }
   quizApp() {
     this.checkboxes.forEach((checkbox) => {
@@ -58,14 +84,6 @@ class Quiz {
     this.checkboxes.forEach((checkbox) =>
       checkbox.parentElement.classList.remove("valid")
     );
-  }
-}
-class Question {
-  constructor(question) {
-    this.id = question.id;
-    this.title = question.title;
-    this.answers = question.answers;
-    this.trueAnswer = question.trueAnswer;
   }
 }
 class User {

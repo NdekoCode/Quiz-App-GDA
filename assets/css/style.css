@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap");
 /* CONFIGURATION DE BASE */
 :root {
+  /* SPACEMENT */
+  --space-m: 3.44rem;
+  --space: 2.5rem;
+  --padding-m: 15px;
+  --item-space: 10px;
+
   /* typo */
   --fs: 16px;
   --fw-title: 500;
@@ -13,8 +19,6 @@
   --color-progress-min: rgba(2, 138, 61, 0.42);
   --color-gray: #dddddd;
   --primary-font: "Inter", "Segoe UI", sans-serif;
-  --space-m: 3.44rem;
-  --space: 2.5rem;
 }
 
 *,
@@ -55,7 +59,9 @@ body {
 }
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 a {
   color: inherit;
@@ -65,19 +71,26 @@ a {
 }
 .container {
   max-width: 1150px;
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 .quiz {
   background-color: var(--color-white);
   padding: var(--space);
-  min-width: 571px;
-  min-height: 600px;
   margin: 1rem;
-}
 
+  min-width: 250px;
+  max-width: 300px;
+  min-height: 520px;
+}
+.quiz:first-child {
+  margin-top: 0;
+}
+.quiz:last-child {
+  margin-bottom: 0;
+}
 .quiz__description {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -86,11 +99,12 @@ a {
   margin-bottom: var(--space);
 }
 .quiz__description {
+  --space: 1.5rem;
   margin: var(--space) 0;
 }
 .quiz__description p {
-  line-height: 1.6;
-  max-width: 491px;
+  line-height: 1.5;
+  max-width: 391px;
   padding-bottom: 1rem;
 }
 
@@ -123,6 +137,7 @@ a {
   width: 10%;
   transition: width 0.3s;
   height: 100%;
+  border-radius: 99px;
 }
 .bar.w-20 {
   width: 20%;
@@ -144,14 +159,20 @@ a {
 }
 
 .form {
-  margin-bottom: 44px;
+  margin-bottom: var(--space);
 }
 
 .input-container {
-  margin-top: 35px;
-  margin-bottom: 45px;
+  --space: 1.5rem;
+  margin-top: var(--space);
+  margin-bottom: var(--space);
 }
-
+.input-container:first-child {
+  margin-top: 0;
+}
+.input-container:last-child {
+  margin-bottom: 0;
+}
 .btn-container {
   display: flex;
   justify-content: center;
@@ -183,22 +204,26 @@ a {
 
 .input-container .input-group,
 .btn-container button {
-  padding: 21px;
+  padding: var(--padding-m);
   outline: none;
   transition: 0.3s;
 }
 
-.btn-container button {
-  font-size: 20px;
+.form-question button {
+  font-size: 1rem;
   border: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  padding-right: 75px;
-  padding-left: 75px;
   border: 1px solid transparent;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 .form .btn {
   border: 1px solid transparent;
   color: var(--color-white);
+}
+.form-result .btn {
+  padding-left: 60px;
+  padding-right: 60px;
 }
 .btn:hover {
   background-color: var(--color-white);
@@ -250,7 +275,7 @@ button {
 }
 
 .input-container label {
-  margin-bottom: 15px;
+  margin-bottom: var(--item-space);
 }
 .input-error {
   font-size: 12px;
@@ -291,9 +316,74 @@ input[type="radio"]:checked ~ .question-name,
 .question-tag {
   margin-left: 20px;
 }
-@media only screen and(min-width:762px) {
+.quiz__description svg {
+  margin: 40px 0;
+}
+.next {
+  margin-left: 0.5rem;
+}
+.prev {
+  margin-right: 0.5rem;
+}
+@media only screen and (min-width: 320px) {
   .quiz {
-    max-width: 572px;
+    min-width: 270px;
+    max-width: 300px;
+    min-height: 520px;
+  }
+  .btn-container .btn {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .quiz {
+    min-width: 400px;
+    max-width: 421px;
+  }
+  .form-question .btn {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+  .btn-container button {
+    font-size: 20px;
+  }
+  .next {
+    margin-left: 1rem;
+  }
+  .prev {
+    margin-right: 1rem;
+  }
+}
+@media only screen and (min-width: 576px) {
+  .quiz {
+    min-width: 450px;
+    min-height: 600px;
+  }
+  .form-question .btn {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}
+
+@media only screen and (min-width: 762px) {
+  .quiz {
+    min-width: 500px;
     max-height: 784px;
+  }
+
+  .form-question .btn {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+}
+@media only screen and (min-width: 762px) {
+  .form.form-question .btn {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .form .btn {
+    padding-right: 70px;
+    padding-left: 70px;
   }
 }

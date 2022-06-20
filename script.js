@@ -1,4 +1,176 @@
-let myQuestions = [
+class Quiz {
+  /**
+   * Creates an instance of Quiz.
+   * @author NdekoCode
+   * @param {HTMLFormElement} form
+   * @param {Question} questions
+   * @memberof Quiz
+   */
+  constructor(form, questions) {
+    /**Le scrore de l'utilisateur */
+    this.score = 0;
+    /** L'index de la questions actuelle(de la question courante) */
+    this.currentQuestionIndex = 0;
+
+    this.form = form;
+    /** Va stoquer toutes nos questions */
+    this.questions = questions;
+    this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
+  }
+
+  /**
+   * @description Récupère la question actuelle ou la question courrante
+   * @author NdekoCode
+   * @return {Question} La question actuelle
+   * @memberof Quiz
+   */
+  getCurrentQuestion() {
+    return this.questions[this.currentQuestionIndex];
+  }
+
+  /**
+   * @description Verifie la reponse de l'utilisateur
+   * @author NdekoCode
+   * @param {String} answer
+   * @memberof Quiz
+   */
+  guess(answer) {
+    if (answer === this.getCurrentQuestion().trueAnswer) {
+      return true;
+    }
+  }
+  quizApp() {
+    this.checkboxes.forEach((checkbox) => {
+      checkbox.parentElement.addEventListener("click", () => {
+        this.removeValidClass();
+        checkbox.parentElement.classList.add("valid");
+        // checkbox.checked
+      });
+      checkbox.addEventListener("input", (evt) => {
+        if (evt.target.checked) {
+          this.removeValidClass();
+          evt.target.parentElement.classList.add("valid");
+        }
+      });
+    });
+  }
+  removeValidClass() {
+    this.checkboxes.forEach((checkbox) =>
+      checkbox.parentElement.classList.remove("valid")
+    );
+  }
+}
+class Question {
+  constructor(question) {
+    this.id = question.id;
+    this.title = question.title;
+    this.answers = question.answers;
+    this.trueAnswer = question.trueAnswer;
+  }
+}
+class User {
+  #name;
+  #email;
+  /**
+   * Créer une instance de User.
+   * @author NdekoCode
+   * @param {String} name Le nom de l'utilisateur
+   * @param {String} email L'adresse email de l'utilisateur
+   * @memberof User
+   */
+  constructor(name, email) {
+    this.#name = name;
+    this.#email = email;
+  }
+
+  /**
+   * @description Renvois le nom de l'utilisateur
+   * @author NdekoCode
+   * @returns {String} le nom d'utilisateur
+   * @readonly
+   * @memberof User
+   */
+  get name() {
+    return this.#name;
+  }
+
+  /**
+   * @description Renvois l'email de l'utilisateur
+   * @author NdekoCode
+   * @returns {String} l'email de l'utilisateur
+   * @readonly
+   * @memberof User
+   */
+  get email() {
+    return this.#email;
+  }
+
+  /**
+   * @description Modifie le nom de l'utilisateur
+   * @author NdekoCode
+   * @param {String} name Le nom de l'utilisateur
+   * @memberof User
+   */
+  set name(name) {
+    this.#name = name;
+  }
+
+  /**
+   * @description Modifie l'email de l'utilisateur
+   * @author NdekoCode
+   * @param {String} email L'email de l'utilisateur
+   * @memberof User
+   */
+  set email(email) {
+    this.#email = email;
+  }
+}
+class Validator {
+  /**
+   * Creates an instance of Validator.
+   * @author NdekoCode
+   * @param {HTMLElement} form The formular
+   * @memberof Validator
+   */
+  constructor(form) {
+    this.errors = {
+      name: "",
+      email: "",
+      question: false,
+    };
+  }
+  emailValidate(email) {
+    var re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+  /**
+   * @description Validate un champ d'un formulaire
+   * @author NdekoCode
+   * @param {HTMLInputElement} field
+   * @memberof Validator
+   */
+  fieldValidate(field) {
+    if (field.name === "name" || field.name === "nom") {
+      if (field.value.length < 1) {
+        this.errors.name = "Veuillez renseignez un nom";
+      } else if (field.value.length < 2) {
+        this.errors.name =
+          "Veuillez renseignez un nom d'au moins deux caracteres";
+      }
+    } else if (field.type === "email") {
+      if (field.value.length < 2) {
+        this.errors.email = "Veuillez renseignez votre adresse email";
+      }
+      if (!this.emailValidate) {
+        this.errors.email =
+          "Veuillez renseignez une adresse email valide xxx@xxx.xxx";
+      }
+    }
+  }
+}
+
+let quizQuestions = [
   {
     id: 1,
     title: "Comment déclarer un tableau « tab » de 10 éléments ?",
@@ -130,5 +302,13 @@ let myQuestions = [
     trueAnswer: "sort()",
   },
 ];
-
-export default myQuestions;
+const forms = document.querySelectorAll(".quiz");
+let questions = [];
+for (let form of forms) {
+  const quiz = new Quiz(form);
+  quiz.quizApp();
+}
+for (let question of quizQuestions) {
+  questions.push(new Question(question));
+}
+console.log(questions);

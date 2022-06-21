@@ -1,25 +1,25 @@
-import Question from "/assets/js/models/Question.js";
-
 export default class Quiz {
   /**
    * Creates an instance of Quiz.
    * @author NdekoCode
-   * @param {HTMLFormElement} form
-   * @param {Question} questions
+   * @param {Question[]} questions
    * @memberof Quiz
    */
-  constructor(form, questions) {
+  constructor(questions) {
+    this.end = false;
     /**Le scrore de l'utilisateur */
     this.score = 0;
     /** L'index de la questions actuelle(de la question courante) */
     this.currentQuestionIndex = 0;
 
-    this.form = form;
+    this.forms = document.querySelectorAll(".form-question");
     /** Va stoquer toutes nos questions */
     this.questions = questions;
-    this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
   }
 
+  getCurrentForm() {
+    return this.forms[this.currentQuestionIndex];
+  }
   /**
    * @description Récupère la question actuelle ou la question courrante
    * @author NdekoCode
@@ -37,28 +37,23 @@ export default class Quiz {
    * @memberof Quiz
    */
   guess(answer) {
-    if (answer === this.getCurrentQuestion().trueAnswer) {
-      return true;
+    // On verifie si la la reponse passé en parametre est la reponse de la question actuelle ou la question courrante car this.getCurrentQuestion() nous retourne une question qu'on qui sur cette question verifie si sa reponse correspond à notre reponse "answer"
+    if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
+      // Si la reponse est vrais alors on augmente le score
+      this.score++;
     }
+    // Et on passe à la question suivante
+    this.currentQuestionIndex++;
   }
-  quizApp() {
-    this.checkboxes.forEach((checkbox) => {
-      checkbox.parentElement.addEventListener("click", () => {
-        this.removeValidClass();
-        checkbox.parentElement.classList.add("valid");
-        // checkbox.checked
-      });
-      checkbox.addEventListener("input", (evt) => {
-        if (evt.target.checked) {
-          this.removeValidClass();
-          evt.target.parentElement.classList.add("valid");
-        }
-      });
-    });
-  }
-  removeValidClass() {
-    this.checkboxes.forEach((checkbox) =>
-      checkbox.parentElement.classList.remove("valid")
-    );
+
+  /**
+   * @description Permet de dire si les question sont terminer
+   * @author NdekoCode
+   * @return {Boolean}
+   * @memberof Quiz
+   */
+  hasEnded() {
+    // Quand tout est finis, quand on a déjà parcouris toute les questions càd quand l'index de la question courrante est superieur ou egale au nombre de question disponible
+    return this.currentQuestionIndex >= this.questions.length || this.end;
   }
 }

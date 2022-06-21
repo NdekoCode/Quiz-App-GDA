@@ -18,6 +18,7 @@ export default class App {
     this.user = user;
     this.quiz = quiz;
     this.validator = new Validator();
+    this.timer;
   }
 
   login() {
@@ -41,8 +42,13 @@ export default class App {
   quizAppInit() {
     this.formQuestion();
     this.formAnswers();
+    this.clearProgression();
+    this.progressQuiz();
     this.form = document.querySelector(".form-question");
-    this.prev = document.getElementById("prev");
+    document.getElementById("prev").addEventListener("click", () => {
+      this.quiz.end = true;
+      this.quizApp();
+    });
 
     this.form.addEventListener("submit", (evt) => evt.preventDefault());
     // On recup
@@ -58,6 +64,28 @@ export default class App {
         // }
       });
     });
+  }
+  progressQuiz() {
+    let timeProgress = 60;
+    let currentQuestionNumber = this.quiz.currentQuestionIndex + 1;
+    this.display.showElement(
+      "progress",
+      `${currentQuestionNumber}/${this.quiz.questions.length}`
+    );
+
+    this.timer = setInterval(() => {
+      if (timeProgress > 0 && !this.quiz.hasEnded()) {
+        document.getElementById("timer").innerHTML = timeProgress;
+        console.log(timeProgress);
+        timeProgress--;
+      } else {
+        clearInterval(this.timer);
+        this.quiz.currentQuestionIndex++;
+      }
+    }, 1000);
+  }
+  clearProgression() {
+    return clearInterval(this.timer);
   }
   /**
    * @description Demarre le quiz ainsi que toute ses intéractions
@@ -95,7 +123,6 @@ export default class App {
   formAnswers() {
     // On recupère les 4 elements du tableau des reponses
     let answers = this.quiz.getCurrentQuestion().answers;
-    console.log(answers);
     /**
      * Prend en compte la reponse de l'utilisateur, la valeur qui sera recuperer par l'utilisateur il va la comparer avec la vrais valeur de chaque objet qui est la reponse exacte
      */
@@ -103,19 +130,20 @@ export default class App {
       let userAnswer = "";
       // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
       document.getElementById("next").onclick = () => {
+        this.clearProgression();
+        this.progressQuiz();
         this.checkboxes.forEach((check) => {
           if (
             Array.from(this.checkboxes).every((checkbox) => !checkbox.checked)
           ) {
-            this.user.answers.push("");
           } else if (check.checked) {
             const currentElementChecked = document.getElementById(
               check.id
             ).nextElementSibling;
             userAnswer += currentElementChecked.innerText;
-            this.user.answers.push(userAnswer);
           }
         });
+
         this.quiz.guess(userAnswer);
         this.quizApp();
       };

@@ -6,6 +6,7 @@ export default class Quiz {
    * @memberof Quiz
    */
   constructor(questions) {
+    this.end = false;
     /**Le scrore de l'utilisateur */
     this.score = 0;
     /** L'index de la questions actuelle(de la question courante) */
@@ -37,7 +38,6 @@ export default class Quiz {
    */
   guess(answer) {
     // On verifie si la la reponse passé en parametre est la reponse de la question actuelle ou la question courrante car this.getCurrentQuestion() nous retourne une question qu'on qui sur cette question verifie si sa reponse correspond à notre reponse "answer"
-    console.log(answer, this.getCurrentQuestion().isCorrectAnswer(answer));
     if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
       // Si la reponse est vrais alors on augmente le score
       this.score++;
@@ -54,6 +54,6 @@ export default class Quiz {
    */
   hasEnded() {
     // Quand tout est finis, quand on a déjà parcouris toute les questions càd quand l'index de la question courrante est superieur ou egale au nombre de question disponible
-    return this.currentQuestionIndex >= this.questions.length;
+    return this.currentQuestionIndex >= this.questions.length || this.end;
   }
 }

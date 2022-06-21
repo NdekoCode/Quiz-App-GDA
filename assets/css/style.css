@@ -45,7 +45,7 @@
   font-size: 2rem;
 }
 p {
-  font-size: 20px;
+  font-size: 18px;
 }
 html,
 body {
@@ -102,14 +102,14 @@ a {
   animation: animText linear 0.3s forwards;
 }
 .quiz__description p {
-  line-height: 1.5;
+  line-height: 1.4;
   max-width: 391px;
   padding-bottom: 1rem;
 }
 
 .progression {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
   /* margin-bottom: 20px; */
 }
 .progression * {
@@ -363,6 +363,9 @@ input[type="radio"]:checked ~ .question-name::before {
   }
 }
 @media only screen and (min-width: 480px) {
+  :root {
+    --space: 2rem;
+  }
   .quiz {
     min-width: 400px;
     max-width: 421px;
@@ -384,7 +387,7 @@ input[type="radio"]:checked ~ .question-name::before {
 @media only screen and (min-width: 576px) {
   .quiz {
     min-width: 450px;
-    min-height: 600px;
+    /* min-height: 600px; */
   }
   .form-question .btn {
     padding-right: 50px;
@@ -394,8 +397,9 @@ input[type="radio"]:checked ~ .question-name::before {
 
 @media only screen and (min-width: 762px) {
   .quiz {
-    min-width: 500px;
-    max-height: 784px;
+    min-width: 480px;
+    max-height: 600px;
+    /* max-height: 784px; */
   }
 
   .form-question .btn {

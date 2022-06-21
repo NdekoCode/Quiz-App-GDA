@@ -29,7 +29,7 @@ export default class Validator {
    * @param {HTMLInputElement} field
    * @memberof Validator
    */
-  fieldValidate(field) {
+  fieldValidate(field, user) {
     field.parentElement.classList.add("invalid");
     if (field.id === "name") {
       if (field.value.length < 1) {
@@ -38,7 +38,7 @@ export default class Validator {
         this.errors.name =
           "Veuillez renseignez un nom d'au moins deux caracteres";
       } else {
-        this.user.name = field.value;
+        user.name = field.value;
         this.errors.name = "";
         field.parentElement.classList.remove("invalid");
       }
@@ -51,7 +51,7 @@ export default class Validator {
         this.errors.email =
           "Veuillez renseignez une adresse email valide xxx@xxx.xxx";
       } else {
-        this.user.email = field.value;
+        user.email = field.value;
         this.errors.email = "";
         field.parentElement.classList.remove("invalid");
       }
@@ -61,23 +61,5 @@ export default class Validator {
         this.validLogin = true;
       }
     }
-  }
-  login(user) {
-    this.display.loginPage();
-    const form = document.getElementById("form-login");
-    form.addEventListener("submit", (evt) => evt.preventDefault());
-    const btn = form.querySelector("button");
-    btn.addEventListener("click", () => {
-      console.log(this.validLogin);
-      const inputs = form.querySelectorAll(".input");
-      inputs.forEach((input) => {
-        input.parentElement.classList.remove("invalid");
-        this.fieldValidate(input);
-      });
-
-      user.name = this.user.name;
-      user.email = this.user.email;
-      console.log(user);
-    });
   }
 }

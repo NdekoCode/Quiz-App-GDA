@@ -5,13 +5,50 @@
  */
 
 export default class Display {
+  constructor() {}
   showElement(id, text) {
     let element = document.getElementById(id);
     element.innerHTML = text;
   }
+  loginPage() {
+    let formHTML = `
+      <div class="quiz__description">
+
+        <h1 class="title title-2">JavaScript Quiz</h1>
+        <p>Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées
+          pour vous.
+          C'est fun et c'est gratuit. </p>
+      </div>
+      <div class="quiz__container">
+        <form action="" class="form" id="form-login">
+          <div class="input-container">
+            <label for="name">Nom</label>
+            <div class="input-group">
+              <input type="text" class="input" name="name" id="name" placeholder="Entrer votre nom" required>
+            </div>
+
+            <!-- Validation -->
+            <div class="input-error" id="name-errors"></div>
+          </div>
+          <div class="input-container">
+            <label for="email">Email </label>
+            <div class="input-group">
+              <input type="text" class="input" name="name" id="email" placeholder="Entrer votre email" required>
+            </div>
+            <!-- Validation -->
+            <div class="input-error" id="email-errors"></div>
+          </div>
+          <div class="btn-container">
+            <button type="submit" class="btn btn-green submit">Commencer</button>
+          </div>
+        </form>
+      </div>`;
+    this.showElement("quiz", formHTML);
+  }
+
   endQuiz(user, quiz) {
-    this.user = user;
     this.quiz = quiz;
+    this.user = user;
     let endQuizHTML = `<div class="quiz__description">
         <h2 class="title title-2">${this.user.name}</h2>
         <p>${this.user.email}</p>
@@ -51,44 +88,68 @@ export default class Display {
       </div>`;
     this.showElement("quiz", endQuizHTML);
   }
-  loginPage() {
-    let formHTML = `
-      <div class="quiz__description">
+  quizPage() {
+    let quizQuestionPage = `<div class="quiz__description">
 
-        <h1 class="title title-2">JavaScript Quiz</h1>
-        <p>Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées
-          pour vous.
-          C'est fun et c'est gratuit. </p>
-      </div>
-      <div class="quiz__container">
-        <form action="" class="form" id="form-login">
-          <div class="input-container">
-            <label for="name">Nom</label>
-            <div class="input-group">
-              <input type="text" class="input" name="name" id="name" placeholder="Entrer votre nom" required>
+                <p id="question">Quel est le type d'un fichier javascript ? </p>
+                <div class="progression">
+                    <div class="progression__details">
+                        <p class="questions-report">Question <span id="progress">1/15</span></p>
+                        <p class="questions_count" id="timer">30</p>
+                    </div>
+                    <div class="progression__bar">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+
             </div>
+            <div class="quiz__container">
+                <form action="" class="form form-question">
+                    <div class="input-container">
+                        <div class="input-group input-group-question" id="guess0">
+                            <input type="radio" class="input input-question" name="question"
+                                placeholder="Entrer votre nom" required>
+                            <label for="question" class="question-name"></label>
+                            <span class="question-tag" id="choice0">.td</span>
+                        </div>
 
-            <!-- Validation -->
-            <div class="input-error" id="name-errors"></div>
-          </div>
-          <div class="input-container">
-            <label for="email">Email </label>
-            <div class="input-group">
-              <input type="text" class="input" name="name" id="email" placeholder="Entrer votre email" required>
-            </div>
-            <!-- Validation -->
-            <div class="input-error" id="email-errors"></div>
-          </div>
-          <div class="btn-container">
-            <button type="submit" class="btn btn-green">Commencer</button>
-          </div>
-        </form>
-      </div>`;
-    this.showElement("quiz", formHTML);
-  }
+                    </div>
+                    <div class="input-container">
+                        <div class="input-group input-group-question" id="guess1">
+                            <input type="radio" class="input input-question" name="question" id="question2"
+                                placeholder="Entrer votre nom" required>
+                            <label for="question2" class="question-name"></label>
+                            <span class="question-tag" id="choice1">.jsx</span>
+                        </div>
 
-  formQuestion() {
-    this.showElement("quiz", this.quiz.getCurrentQuestion().title);
+                    </div>
+
+                    <div class="input-container">
+                        <div class="input-group input-group-question" id="guess2">
+                            <input type="radio" class="input input-question" name="question" id="question3"
+                                placeholder="Entrer votre nom" required>
+                            <label for="question3" class="question-name"></label>
+                            <span class="question-tag" id="choice2">.js</span>
+                        </div>
+
+                    </div>
+
+                    <div class="input-container">
+                        <div class="input-group input-group-question" id="guess3">
+                            <input type="radio" class="input input-question" name="question4" id="question2"
+                                placeholder="Entrer votre nom" required>
+                            <label for="question4" class="question-name"></label>
+                            <span class="question-tag" id="choice3">.j</span>
+                        </div>
+
+                    </div>
+                    <div class="btn-container">
+                        <button class="btn btn-warning prev" type="submit">Quitter</button>
+                        <button class="btn btn-green-min next" type="submit">Suivant</button>
+                    </div>
+                </form>
+            </div>`;
+    this.showElement("quiz", quizQuestionPage);
   }
   addClass(identifier, elementClass, prevElement = false) {
     if (prevElement) {

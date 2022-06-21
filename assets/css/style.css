@@ -200,6 +200,7 @@ a {
 .input-group input::placeholder,
 .input-group input {
   font-size: 15px;
+  background-color: inherit;
 }
 
 .input-container .input-group,

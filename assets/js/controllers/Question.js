@@ -11,6 +11,6 @@ export default class Question {
     this.trueAnswer = question.trueAnswer;
   }
   isCorrectAnswer(answer) {
-    return this.answers === answer;
+    return this.trueAnswer === answer;
   }
 }

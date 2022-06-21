@@ -37,6 +37,7 @@ export default class Quiz {
    */
   guess(answer) {
     // On verifie si la la reponse passé en parametre est la reponse de la question actuelle ou la question courrante car this.getCurrentQuestion() nous retourne une question qu'on qui sur cette question verifie si sa reponse correspond à notre reponse "answer"
+    console.log(answer, this.getCurrentQuestion().isCorrectAnswer(answer));
     if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
       // Si la reponse est vrais alors on augmente le score
       this.score++;

@@ -34,25 +34,29 @@ export default class App {
       });
 
       if (this.validator.validLogin) {
-        this.formQuestion();
-        this.formAnswers();
-        this.form = document.querySelector(".form-question");
-        this.next = document.getElementById("next");
-        this.prev = document.getElementById("prev");
-
-        this.form.addEventListener("submit", (evt) => evt.preventDefault());
-        // On recup
-        this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
-        // On recupere le dynamisme des checkboxs
-        this.checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener("input", (evt) => {
-            this.next.classList.replace("btn-green-min", "btn-green");
-            if (evt.target.checked) {
-              // Code pour la reponse ET que l'on va recuperer
-            }
-          });
-        });
+        this.quizAppInit();
       }
+    });
+  }
+  quizAppInit() {
+    this.formQuestion();
+    this.formAnswers();
+    this.form = document.querySelector(".form-question");
+    this.prev = document.getElementById("prev");
+
+    this.form.addEventListener("submit", (evt) => evt.preventDefault());
+    // On recup
+    this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
+    // On recupere le dynamisme des checkboxs
+    this.checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("input", (evt) => {
+        document
+          .getElementById("next")
+          .classList.replace("btn-green-min", "btn-green");
+        // if (evt.target.checked) {
+        // Code pour la reponse ET que l'on va recuperer
+        // }
+      });
     });
   }
   /**
@@ -62,22 +66,21 @@ export default class App {
    */
   quizApp() {
     // Game Logic
-    if (this.quiz.hasEnded()) {
-      // Fin du jeux de question
-      display.endQuiz();
-    } else {
-      //
-      if (!this.validator.validLogin) {
-        // In the login:
-        // Logic Game with our function
-        // -> Question
-        // -> Choise
-        // Progresse "Question 1/4"
-        this.login(this.user, this.quiz);
-      }
-    }
 
-    console.log(this.form);
+    //
+    if (!this.validator.validLogin) {
+      // In the login:
+      this.login(this.user, this.quiz);
+    } else if (this.quiz.hasEnded()) {
+      // Fin du jeux de question
+      this.display.endQuiz(this.user, this.quiz);
+    } else {
+      // Logic Game with our function
+      this.quizAppInit();
+      // -> Question
+      // -> Choise
+      // Progresse "Question 1/4"
+    }
   }
 
   formQuestion() {
@@ -95,33 +98,32 @@ export default class App {
     console.log(answers);
     /**
      * Prend en compte la reponse de l'utilisateur, la valeur qui sera recuperer par l'utilisateur il va la comparer avec la vrais valeur de chaque objet qui est la reponse exacte
-     * @param {String} id l'identifiant qui sera déterminer par le clic
-     * @param {*} guess
      */
-    const guessHandler = (id, guess) => {
+    const guessHandler = () => {
       let userAnswer = "";
       // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
-      this.next.onclick = function () {
+      document.getElementById("next").onclick = () => {
         this.checkboxes.forEach((check) => {
-          if (this.checkboxes.every((checkbox) => !checkbox.checked)) {
+          if (
+            Array.from(this.checkboxes).every((checkbox) => !checkbox.checked)
+          ) {
             this.user.answers.push("");
           } else if (check.checked) {
             const currentElementChecked = document.getElementById(
               check.id
             ).nextElementSibling;
             userAnswer += currentElementChecked.innerText;
-            console.log(currentElementChecked);
-            user.answers.push(userAnswer);
+            this.user.answers.push(userAnswer);
           }
         });
-        this.quiz.guess(guess);
+        this.quiz.guess(userAnswer);
         this.quizApp();
       };
     };
 
     for (let i = 0; i < answers.length; i++) {
       this.display.showElement(`choice${i}`, answers[i]);
-      console.log(answers[i]);
+      guessHandler();
     }
   }
 }

@@ -35,6 +35,7 @@ export default class App {
 
       if (this.validator.validLogin) {
         this.formQuestion(this.quiz);
+        this.choices(this.quiz);
         this.form = document.querySelector(".form-question");
         this.form.addEventListener("submit", (evt) => evt.preventDefault());
         // On recup
@@ -46,8 +47,9 @@ export default class App {
 
             document
               .querySelector(".next")
-              .classList.replace("btn-green-min", ".btn-green");
+              .classList.replace("btn-green-min", "btn-green");
             checkbox.parentElement.classList.add("valid");
+            checkbox.checked;
             // checkbox.checked
           });
           checkbox.addEventListener("input", (evt) => {
@@ -93,9 +95,8 @@ export default class App {
     );
   }
 
-  formQuestion(quiz) {
+  formQuestion() {
     this.display.quizPage();
-    this.quiz = quiz;
     this.display.showElement("question", this.quiz.getCurrentQuestion().title);
   }
   formChoises() {

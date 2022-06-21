@@ -33,7 +33,7 @@ export default class Display {
           <div class="input-container">
             <label for="email">Email </label>
             <div class="input-group">
-              <input type="text" class="input" name="name" id="email" placeholder="Entrer votre email" required>
+              <input type="email" class="input" name="name" id="email" placeholder="Entrer votre email" required>
             </div>
             <!-- Validation -->
             <div class="input-error" id="email-errors"></div>
@@ -136,7 +136,7 @@ export default class Display {
 
                     <div class="input-container">
                         <div class="input-group input-group-question" id="guess3">
-                            <input type="radio" class="input input-question" name="question4" id="question2"
+                            <input type="radio" class="input input-question" name="question" id="question2"
                                 placeholder="Entrer votre nom" required>
                             <label for="question4" class="question-name"></label>
                             <span class="question-tag" id="choice3">.j</span>

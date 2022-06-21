@@ -73,11 +73,12 @@ export default class App {
       `${currentQuestionNumber}/${this.quiz.questions.length}`
     );
 
+    document.getElementById("timer").innerHTML = timeProgress;
     this.timer = setInterval(() => {
       if (timeProgress > 0 && !this.quiz.hasEnded()) {
-        document.getElementById("timer").innerHTML = timeProgress;
         console.log(timeProgress);
         timeProgress--;
+        document.getElementById("timer").innerHTML = timeProgress;
       } else {
         clearInterval(this.timer);
         this.quiz.currentQuestionIndex++;

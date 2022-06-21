@@ -1,11 +1,11 @@
-let myQuestions = [
+let quizQuestions = [
   {
     id: 1,
     title: "Comment déclarer un tableau « tab » de 10 éléments ?",
     answers: [
       "let tab = new Array(10)",
       "let tab[10]",
-      "let tab[10]",
+      "let tab = array(10)",
       "let tab(10)",
     ],
     trueAnswer: "let tab = new Array(10)",
@@ -131,4 +131,4 @@ let myQuestions = [
   },
 ];
 
-export default myQuestions;
+export default quizQuestions;

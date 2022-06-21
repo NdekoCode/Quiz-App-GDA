@@ -94,13 +94,12 @@ a {
   justify-content: center;
   align-items: center;
   text-align: center;
+  --space: 1.5rem;
+  margin: var(--space) 0;
 }
 .quiz__description .title {
   margin-bottom: var(--space);
-}
-.quiz__description {
-  --space: 1.5rem;
-  margin: var(--space) 0;
+  animation: animText linear 0.3s forwards;
 }
 .quiz__description p {
   line-height: 1.5;
@@ -134,10 +133,11 @@ a {
 }
 .bar {
   background-color: var(--color-progress);
-  width: 10%;
+  width: 100%;
   transition: width 0.3s;
   height: 100%;
   border-radius: 99px;
+  animation: animBar linear 60s forwards;
 }
 .bar.w-20 {
   width: 20%;
@@ -177,16 +177,12 @@ a {
   display: flex;
   justify-content: center;
 }
-
 .form-question .btn-container {
   justify-content: space-between;
 }
 
 .input-group.invalid {
   border-color: var(--color--error);
-}
-.input-group.valid {
-  border-color: var(--color-progress);
 }
 .input-group {
   border: 1px solid var(--color-gray);
@@ -200,6 +196,7 @@ a {
 .input-group input::placeholder,
 .input-group input {
   font-size: 15px;
+  background-color: inherit;
 }
 
 .input-container .input-group,
@@ -225,6 +222,10 @@ a {
   padding-left: 60px;
   padding-right: 60px;
 }
+.form-result button {
+  animation: endQuiz linear 0.3s 0.1s;
+}
+
 .btn:hover {
   background-color: var(--color-white);
 }
@@ -284,18 +285,34 @@ button {
 }
 /* Questions */
 .question-name {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+input[type="radio"]:checked + .question-name,
+.input-group-question .question-name:hover {
+  border-color: var(--color-progress);
+}
+
+.question-name::before {
+  content: "";
+  display: block;
   width: 20px;
   height: 20px;
   border: 1px solid var(--color-gray);
   border-radius: 50%;
   cursor: pointer;
+  margin-right: 10px;
+  margin-left: 15px;
 }
 .input-question {
   display: none;
 }
 
-input[type="radio"]:checked ~ .question-name,
-.input-group.valid .question-name {
+input[type="radio"]:checked ~ .question-name::before,
+input[type="radio"]:checked ~ .question-name::before {
   background-color: var(--color-progress);
   border-color: var(--color-progress);
 }
@@ -305,24 +322,33 @@ input[type="radio"]:checked ~ .question-name,
 .form-question .question-name {
   margin-bottom: 0;
 }
-.input-group-question {
+.form-question .input-group-question {
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 0;
+  height: 50px;
+  border: 1px solid transparent;
+  animation: animFormQuestion linear 0.3s;
 }
 .input-group-question * {
   font-size: 20px;
+}
+.input-group-question .question-name {
+  border: 1px solid var(--color-gray);
+  width: 100%;
 }
 .question-tag {
   margin-left: 20px;
 }
 .quiz__description svg {
   margin: 40px 0;
+  animation: endQuiz linear 0.3s;
 }
-.next {
+#next {
   margin-left: 0.5rem;
 }
-.prev {
+#prev {
   margin-right: 0.5rem;
 }
 @media only screen and (min-width: 320px) {
@@ -348,10 +374,10 @@ input[type="radio"]:checked ~ .question-name,
   .btn-container button {
     font-size: 20px;
   }
-  .next {
+  #next {
     margin-left: 1rem;
   }
-  .prev {
+  #prev {
     margin-right: 1rem;
   }
 }
@@ -385,5 +411,40 @@ input[type="radio"]:checked ~ .question-name,
   .form .btn {
     padding-right: 70px;
     padding-left: 70px;
+  }
+}
+@keyframes animBar {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+@keyframes animFormQuestion {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes endQuiz {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes animText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

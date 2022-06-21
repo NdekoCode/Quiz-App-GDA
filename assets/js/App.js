@@ -34,31 +34,21 @@ export default class App {
       });
 
       if (this.validator.validLogin) {
-        this.formQuestion(this.quiz);
-        this.choices(this.quiz);
+        this.formQuestion();
+        this.formAnswers();
         this.form = document.querySelector(".form-question");
+        this.next = document.getElementById("next");
+        this.prev = document.getElementById("prev");
+
         this.form.addEventListener("submit", (evt) => evt.preventDefault());
         // On recup
         this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
         // On recupere le dynamisme des checkboxs
         this.checkboxes.forEach((checkbox) => {
-          checkbox.parentElement.addEventListener("click", () => {
-            this.removeValidClass();
-
-            document
-              .querySelector(".next")
-              .classList.replace("btn-green-min", "btn-green");
-            checkbox.parentElement.classList.add("valid");
-            checkbox.checked;
-            // checkbox.checked
-          });
           checkbox.addEventListener("input", (evt) => {
-            document
-              .querySelector(".next")
-              .classList.replace("btn-green-min", ".btn-green");
+            this.next.classList.replace("btn-green-min", "btn-green");
             if (evt.target.checked) {
-              this.removeValidClass();
-              evt.target.parentElement.classList.add("valid");
+              // Code pour la reponse ET que l'on va recuperer
             }
           });
         });
@@ -78,32 +68,60 @@ export default class App {
     } else {
       //
       if (!this.validator.validLogin) {
-        this.login(this.user, this.quiz);
-
+        // In the login:
         // Logic Game with our function
         // -> Question
         // -> Choise
         // Progresse "Question 1/4"
+        this.login(this.user, this.quiz);
       }
     }
 
     console.log(this.form);
-  }
-  removeValidClass() {
-    this.checkboxes.forEach((checkbox) =>
-      checkbox.parentElement.classList.remove("valid")
-    );
   }
 
   formQuestion() {
     this.display.quizPage();
     this.display.showElement("question", this.quiz.getCurrentQuestion().title);
   }
-  formChoises() {
-    let choices = this.quiz.getCurrentQuestion().answers;
+  /**
+   * @description Les differentes reponses pour notre question courante
+   * @author NdekoCode
+   * @memberof App
+   */
+  formAnswers() {
+    // On recupère les 4 elements du tableau des reponses
+    let answers = this.quiz.getCurrentQuestion().answers;
+    console.log(answers);
+    /**
+     * Prend en compte la reponse de l'utilisateur, la valeur qui sera recuperer par l'utilisateur il va la comparer avec la vrais valeur de chaque objet qui est la reponse exacte
+     * @param {String} id l'identifiant qui sera déterminer par le clic
+     * @param {*} guess
+     */
     const guessHandler = (id, guess) => {
-      document.getElementById(id);
-      this.quiz.guess(guess);
+      let userAnswer = "";
+      // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
+      this.next.onclick = function () {
+        this.checkboxes.forEach((check) => {
+          if (this.checkboxes.every((checkbox) => !checkbox.checked)) {
+            this.user.answers.push("");
+          } else if (check.checked) {
+            const currentElementChecked = document.getElementById(
+              check.id
+            ).nextElementSibling;
+            userAnswer += currentElementChecked.innerText;
+            console.log(currentElementChecked);
+            user.answers.push(userAnswer);
+          }
+        });
+        this.quiz.guess(guess);
+        this.quizApp();
+      };
     };
+
+    for (let i = 0; i < answers.length; i++) {
+      this.display.showElement(`choice${i}`, answers[i]);
+      console.log(answers[i]);
+    }
   }
 }

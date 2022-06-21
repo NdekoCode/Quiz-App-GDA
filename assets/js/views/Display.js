@@ -107,45 +107,41 @@ export default class Display {
                 <form action="" class="form form-question">
                     <div class="input-container">
                         <div class="input-group input-group-question" id="guess0">
-                            <input type="radio" class="input input-question" name="question"
-                                placeholder="Entrer votre nom" required>
-                            <label for="question" class="question-name"></label>
-                            <span class="question-tag" id="choice0">.td</span>
+                            <input type="radio" class="input input-question" name="question" id="question0"
+                                 required>
+                            <label for="question0" class="question-name" id="choice0">.td</label>
                         </div>
 
                     </div>
                     <div class="input-container">
                         <div class="input-group input-group-question" id="guess1">
-                            <input type="radio" class="input input-question" name="question" id="question2"
-                                placeholder="Entrer votre nom" required>
-                            <label for="question2" class="question-name"></label>
-                            <span class="question-tag" id="choice1">.jsx</span>
+                            <input type="radio" class="input input-question" name="question" id="question1"
+                                 required>
+                            <label for="question1" class="question-name" id="choice1">.jsx</label>
                         </div>
 
                     </div>
 
                     <div class="input-container">
                         <div class="input-group input-group-question" id="guess2">
-                            <input type="radio" class="input input-question" name="question" id="question3"
-                                placeholder="Entrer votre nom" required>
-                            <label for="question3" class="question-name"></label>
-                            <span class="question-tag" id="choice2">.js</span>
+                            <input type="radio" class="input input-question" name="question" id="question2"
+                                 required>
+                            <label for="question2" class="question-name" id="choice2">.js</label>
                         </div>
 
                     </div>
 
                     <div class="input-container">
                         <div class="input-group input-group-question" id="guess3">
-                            <input type="radio" class="input input-question" name="question" id="question2"
-                                placeholder="Entrer votre nom" required>
-                            <label for="question4" class="question-name"></label>
-                            <span class="question-tag" id="choice3">.j</span>
+                            <input type="radio" class="input input-question" name="question" id="question3"
+                                 required>
+                            <label for="question3" class="question-name" id="choice3">.j</label>
                         </div>
 
                     </div>
                     <div class="btn-container">
-                        <button class="btn btn-warning prev" type="submit">Quitter</button>
-                        <button class="btn btn-green-min next" type="submit">Suivant</button>
+                        <button class="btn btn-warning" id="prev" type="submit">Quitter</button>
+                        <button class="btn btn-green-min" id="next" type="submit">Suivant</button>
                     </div>
                 </form>
             </div>`;

@@ -342,7 +342,7 @@ input[type="radio"]:checked ~ .question-name::before {
   margin-left: 20px;
 }
 .quiz__description svg {
-  margin: 40px 0;
+  margin: 25px 0;
   animation: endQuiz linear 0.3s;
 }
 #next {

@@ -19,6 +19,7 @@ export default class App {
     this.quiz = quiz;
     this.validator = new Validator();
     this.timer;
+    this.defaultTimeProgress = 60;
     this.timeProgress = 60;
     this.form;
     this.checkboxes;
@@ -46,12 +47,11 @@ export default class App {
   quizAppInit() {
     this.formQuestion();
     this.formAnswers();
-    this.clearProgression();
+    // this.clearProgression();
     this.progressQuiz();
     this.form = document.querySelector(".form-question");
     document.getElementById("prev").addEventListener("click", () => {
       this.quiz.end = true;
-      this.clearProgression();
       this.quizApp();
     });
 
@@ -64,9 +64,6 @@ export default class App {
       checkbox.addEventListener("input", (evt) => {
         next.disabled = false;
         next.classList.replace("btn-green-min", "btn-green");
-        // if (evt.target.checked) {
-        // Code pour la reponse ET que l'on va recuperer
-        // }
       });
     });
   }
@@ -76,21 +73,21 @@ export default class App {
       "progress",
       `${currentQuestionNumber}/${this.quiz.questions.length}`
     );
-
+    document
+      .querySelector(".bar")
+      .style.setProperty("--timer", this.defaultTimeProgress + "s");
     document.getElementById("timer").innerHTML = this.timeProgress;
     this.timer = setInterval(() => {
-      // console.log(this.timeProgress);
+      this.timeProgress--;
+      console.log(this.timeProgress);
       if (this.timeProgress <= 0 || this.quiz.hasEnded()) {
+        // this.clearProgression();
         if (this.timeProgress <= 0) {
-          this.clearProgression();
           this.quiz.guess(this.userAnswer);
         }
-
         this.quizApp();
-      } else {
-        this.timeProgress--;
-        document.getElementById("timer").innerHTML = this.timeProgress;
       }
+      document.getElementById("timer").innerHTML = this.timeProgress;
     }, 1000);
 
     if (this.quiz.questions.length - 1 === this.quiz.currentQuestionIndex) {
@@ -98,7 +95,7 @@ export default class App {
     }
   }
   clearProgression() {
-    this.timeProgress = 60;
+    this.timeProgress = this.defaultTimeProgress;
     return clearInterval(this.timer);
   }
   /**
@@ -110,6 +107,7 @@ export default class App {
     // Game Logic
     // console.log(this.quiz.currentQuestionIndex);
 
+    this.clearProgression();
     //
     if (!this.validator.validLogin) {
       // In the login:
@@ -158,7 +156,7 @@ export default class App {
       });
 
       next.onclick = () => {
-        this.clearProgression();
+        // this.clearProgression();
 
         this.checkboxes.forEach((check) => {
           if (check.checked) {

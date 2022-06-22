@@ -142,6 +142,18 @@ export default class App {
       // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
       const next = document.getElementById("next");
 
+      this.checkboxes = document.querySelectorAll('input[type="radio"]');
+      this.checkboxes.forEach((check) => {
+        check.addEventListener("input", (evt) => {
+          const currentElementChecked = document.getElementById(
+            evt.target.id
+          ).nextElementSibling;
+          userAnswer = currentElementChecked.textContent;
+
+          console.log(userAnswer);
+        });
+      });
+
       next.onclick = () => {
         this.clearProgression();
 
@@ -157,16 +169,6 @@ export default class App {
         this.quiz.guess(userAnswer);
         this.quizApp();
       };
-
-      this.checkboxes = document.querySelectorAll('input[type="radio"]');
-      this.checkboxes.forEach((check) => {
-        check.addEventListener("input", (evt) => {
-          const currentElementChecked = document.getElementById(
-            evt.target.id
-          ).nextElementSibling;
-          userAnswer = currentElementChecked.textContent;
-        });
-      });
     };
 
     for (let i = 0; i < answers.length; i++) {

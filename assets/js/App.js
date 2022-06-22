@@ -19,8 +19,10 @@ export default class App {
     this.quiz = quiz;
     this.validator = new Validator();
     this.timer;
+    this.timeProgress = 60;
     this.form;
     this.checkboxes;
+    this.userAnswer = "";
   }
 
   login() {
@@ -49,6 +51,7 @@ export default class App {
     this.form = document.querySelector(".form-question");
     document.getElementById("prev").addEventListener("click", () => {
       this.quiz.end = true;
+      this.clearProgression();
       this.quizApp();
     });
 
@@ -68,25 +71,25 @@ export default class App {
     });
   }
   progressQuiz() {
-    let timeProgress = 5;
     let currentQuestionNumber = this.quiz.currentQuestionIndex + 1;
     this.display.showElement(
       "progress",
       `${currentQuestionNumber}/${this.quiz.questions.length}`
     );
 
-    document.getElementById("timer").innerHTML = timeProgress;
+    document.getElementById("timer").innerHTML = this.timeProgress;
     this.timer = setInterval(() => {
-      console.log(timeProgress);
-      if (timeProgress <= 0 || this.quiz.hasEnded()) {
-        this.clearProgression();
-        if (timeProgress <= 0) {
-          this.quiz.currentQuestionIndex++;
-          this.quizApp();
+      // console.log(this.timeProgress);
+      if (this.timeProgress <= 0 || this.quiz.hasEnded()) {
+        if (this.timeProgress <= 0) {
+          this.clearProgression();
+          this.quiz.guess(this.userAnswer);
         }
+
+        this.quizApp();
       } else {
-        timeProgress--;
-        document.getElementById("timer").innerHTML = timeProgress;
+        this.timeProgress--;
+        document.getElementById("timer").innerHTML = this.timeProgress;
       }
     }, 1000);
 
@@ -95,6 +98,7 @@ export default class App {
     }
   }
   clearProgression() {
+    this.timeProgress = 60;
     return clearInterval(this.timer);
   }
   /**
@@ -104,6 +108,7 @@ export default class App {
    */
   quizApp() {
     // Game Logic
+    // console.log(this.quiz.currentQuestionIndex);
 
     //
     if (!this.validator.validLogin) {
@@ -114,10 +119,10 @@ export default class App {
       this.display.endQuiz(this.user, this.quiz);
     } else {
       // Logic Game with our function
-      this.quizAppInit();
       // -> Question
       // -> Choise
       // Progresse "Question 1/4"
+      this.quizAppInit();
     }
   }
 
@@ -137,7 +142,6 @@ export default class App {
      * Prend en compte la reponse de l'utilisateur, la valeur qui sera recuperer par l'utilisateur il va la comparer avec la vrais valeur de chaque objet qui est la reponse exacte
      */
     const guessHandler = () => {
-      let userAnswer = "";
       // MORNING
       // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
       const next = document.getElementById("next");
@@ -148,9 +152,8 @@ export default class App {
           const currentElementChecked = document.getElementById(
             evt.target.id
           ).nextElementSibling;
-          userAnswer = currentElementChecked.textContent;
-
-          console.log(userAnswer);
+          this.userAnswer = currentElementChecked.textContent;
+          // console.log(this.userAnswer);
         });
       });
 
@@ -162,11 +165,11 @@ export default class App {
             const currentElementChecked = document.getElementById(
               check.id
             ).nextElementSibling;
-            userAnswer = currentElementChecked.innerText;
+            this.userAnswer = currentElementChecked.innerText;
           }
         });
 
-        this.quiz.guess(userAnswer);
+        this.quiz.guess(this.userAnswer);
         this.quizApp();
       };
     };

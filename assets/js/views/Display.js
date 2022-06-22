@@ -141,7 +141,7 @@ export default class Display {
                     </div>
                     <div class="btn-container">
                         <button class="btn btn-warning" id="prev" type="submit">Quitter</button>
-                        <button class="btn btn-green-min" id="next" type="submit">Suivant</button>
+                        <button class="btn btn-green-min" id="next" type="submit" disabled>Suivant</button>
                     </div>
                 </form>
             </div>`;

@@ -19,6 +19,8 @@ export default class App {
     this.quiz = quiz;
     this.validator = new Validator();
     this.timer;
+    this.form;
+    this.checkboxes;
   }
 
   login() {
@@ -53,12 +55,12 @@ export default class App {
     this.form.addEventListener("submit", (evt) => evt.preventDefault());
     // On recup
     this.checkboxes = this.form.querySelectorAll('input[type="radio"]');
+    const next = document.getElementById("next");
     // On recupere le dynamisme des checkboxs
     this.checkboxes.forEach((checkbox) => {
       checkbox.addEventListener("input", (evt) => {
-        document
-          .getElementById("next")
-          .classList.replace("btn-green-min", "btn-green");
+        next.disabled = false;
+        next.classList.replace("btn-green-min", "btn-green");
         // if (evt.target.checked) {
         // Code pour la reponse ET que l'on va recuperer
         // }
@@ -66,7 +68,7 @@ export default class App {
     });
   }
   progressQuiz() {
-    let timeProgress = 60;
+    let timeProgress = 5;
     let currentQuestionNumber = this.quiz.currentQuestionIndex + 1;
     this.display.showElement(
       "progress",
@@ -75,15 +77,22 @@ export default class App {
 
     document.getElementById("timer").innerHTML = timeProgress;
     this.timer = setInterval(() => {
-      if (timeProgress > 0 && !this.quiz.hasEnded()) {
-        console.log(timeProgress);
+      console.log(timeProgress);
+      if (timeProgress <= 0 || this.quiz.hasEnded()) {
+        this.clearProgression();
+        if (timeProgress <= 0) {
+          this.quiz.currentQuestionIndex++;
+          this.quizApp();
+        }
+      } else {
         timeProgress--;
         document.getElementById("timer").innerHTML = timeProgress;
-      } else {
-        clearInterval(this.timer);
-        this.quiz.currentQuestionIndex++;
       }
     }, 1000);
+
+    if (this.quiz.questions.length - 1 === this.quiz.currentQuestionIndex) {
+      document.getElementById("next").innerHTML = "Terminer";
+    }
   }
   clearProgression() {
     return clearInterval(this.timer);
@@ -129,25 +138,35 @@ export default class App {
      */
     const guessHandler = () => {
       let userAnswer = "";
+      // MORNING
       // Cette fonction va recuperer où est-ce que l'utilisateur a cliquer et la
-      document.getElementById("next").onclick = () => {
+      const next = document.getElementById("next");
+
+      next.onclick = () => {
         this.clearProgression();
-        this.progressQuiz();
+
         this.checkboxes.forEach((check) => {
-          if (
-            Array.from(this.checkboxes).every((checkbox) => !checkbox.checked)
-          ) {
-          } else if (check.checked) {
+          if (check.checked) {
             const currentElementChecked = document.getElementById(
               check.id
             ).nextElementSibling;
-            userAnswer += currentElementChecked.innerText;
+            userAnswer = currentElementChecked.innerText;
           }
         });
 
         this.quiz.guess(userAnswer);
         this.quizApp();
       };
+
+      this.checkboxes = document.querySelectorAll('input[type="radio"]');
+      this.checkboxes.forEach((check) => {
+        check.addEventListener("input", (evt) => {
+          const currentElementChecked = document.getElementById(
+            evt.target.id
+          ).nextElementSibling;
+          userAnswer = currentElementChecked.textContent;
+        });
+      });
     };
 
     for (let i = 0; i < answers.length; i++) {

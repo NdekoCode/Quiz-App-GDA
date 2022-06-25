@@ -3,7 +3,7 @@
 :root {
   /* SPACEMENT */
   --space-m: 3.44rem;
-  --space: 2.5rem;
+  --space: 1.5rem;
   --padding-m: 15px;
   --item-space: 10px;
 
@@ -81,7 +81,6 @@ a {
   margin: 1rem;
 
   min-width: 250px;
-  max-width: 300px;
   min-height: 520px;
 }
 .quiz:first-child {
@@ -227,6 +226,10 @@ a {
 .form-result button {
   animation: endQuiz linear 0.3s 0.1s;
 }
+.form .btn-container .submit {
+  padding-right: 50px;
+  padding-left: 50px;
+}
 
 .btn:hover {
   background-color: var(--color-white);
@@ -362,10 +365,14 @@ input[type="radio"]:checked ~ .question-name::before {
 #prev {
   margin-right: 0.5rem;
 }
+@media only screen and (max-width: 320px) {
+  #quiz {
+    margin: 0;
+  }
+}
 @media only screen and (min-width: 320px) {
   .quiz {
     min-width: 270px;
-    max-width: 300px;
     min-height: 520px;
   }
   .btn-container .btn {

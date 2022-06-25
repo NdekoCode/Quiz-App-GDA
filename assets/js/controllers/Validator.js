@@ -30,15 +30,15 @@ export default class Validator {
    * @memberof Validator
    */
   fieldValidate(field, user) {
+    field.value = field.value.trim();
     field.parentElement.classList.add("invalid");
     if (field.id === "name") {
-      if (!(/^[a-zA-Z]+(?:\s[a-zA-Z]+)?$/.test(field.value))) {
+      if (field.value.length <= 0) {
         this.errors.name = "Veuillez renseignez un nom";
-      } else if (field.value.length < 2){
+      } else if (field.value.length < 2) {
         this.errors.name =
           "Veuillez renseignez un nom d'au moins deux caracteres";
-          
-        }else {
+      } else {
         user.name = field.value;
         this.errors.name = "";
         field.parentElement.classList.remove("invalid");

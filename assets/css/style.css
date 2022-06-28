@@ -219,7 +219,7 @@ a {
   border: 1px solid transparent;
   color: var(--color-white);
 }
-.form-result .btn {
+.form.form-result .btn {
   padding-left: 60px;
   padding-right: 60px;
 }
@@ -372,7 +372,8 @@ input[type="radio"]:checked ~ .question-name::before {
 }
 @media only screen and (min-width: 320px) {
   .quiz {
-    min-width: 270px;
+    min-width: 95%;
+    max-width: 350px;
     min-height: 520px;
   }
   .btn-container .btn {

@@ -28,11 +28,11 @@ let quizQuestions = [
       "Pour vérifier si trois variables sont égaux, nous utiliserons_____ ?",
     answers: [
       "X = Y = Z",
-      "(X == B) && (Y == Z)",
-      "(X = B) && (Y = Z)",
-      "(X == B) & (Y == Z)",
+      "(X === Y ) && (Y === Z)",
+      "(X = Y) && (Y = Z)",
+      "(X == Y) & (Y == Z)",
     ],
-    trueAnswer: "(X == B) && (Y == Z)",
+    trueAnswer: "(X === Y ) && (Y === Z)",
   },
   {
     id: 4,
@@ -88,7 +88,7 @@ let quizQuestions = [
   {
     id: 10,
     title: "Quel événement est spécifique au clavier?",
-    answers: ["onkeypress", "onkeydown", "onclick", "onfocus"],
+    answers: ["onkeypress", "onload", "onclick", "onfocus"],
     trueAnswer: "onkeypress",
   },
   {

@@ -138,27 +138,10 @@ a {
   transition: width 0.3s;
   height: 100%;
   border-radius: 99px;
-  animation: animBar linear var(--timer) forwards;
+  animation-name: animBar;
+  animation-duration:  var(--timer);
+  animation-timing-function:linear;
 }
-.bar.w-20 {
-  width: 20%;
-}
-.bar.w-40 {
-  width: 40%;
-}
-
-.bar.w-60 {
-  width: 60%;
-}
-
-.bar.w-80 {
-  width: 80%;
-}
-
-.bar.w-100 {
-  width: 100%;
-}
-
 .form {
   margin-bottom: var(--space);
 }
@@ -209,7 +192,6 @@ a {
 
 .form-question button {
   font-size: 1rem;
-  border: none;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border: 1px solid transparent;
   padding-right: 10px;
@@ -294,6 +276,7 @@ button {
   align-items: center;
   height: 100%;
   width: 100%;
+  cursor: pointer;
 }
 
 input[type="radio"]:checked + .question-name,
